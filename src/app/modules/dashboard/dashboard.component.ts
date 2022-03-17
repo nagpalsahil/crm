@@ -24,22 +24,22 @@ export class DashboardComponent implements OnInit {
     });
 
     this.fieldsArr = [
+      { field: 'ownerClientId', header: 'Owner client ID' },
       { field: 'applicationName', header: 'Application Number' },
+      { field: 'channel', header: 'Channel' },
+      { field: 'customerSegment', header: 'Customer segment' },
+      { field: 'priority', header: 'Priority' },
+      { field: 'hni', header: 'HNI' },
       { field: 'ownerExactOccupation', header: 'Owner exact occupation' },
       { field: 'annualizedTargetPermium', header: 'Annualized Target Premium' },
-      { field: 'ownerClientId', header: 'Owner client ID' },
       { field: 'countOfPolicies', header: 'Count of policies' },
       { field: 'policyStatusAsOnMonthend', header: 'Policy status as on Monthend' },
-      { field: 'channel', header: 'Channel' },
       { field: 'planName', header: 'Plan name' },
       { field: 'education', header: 'Education' },
-      { field: 'customerSegment', header: 'Customer segment' },
-      { field: 'hni', header: 'HNI' },
       { field: 'ownerName', header: 'Owner Name' },
       { field: 'ownerGender', header: 'Owner Gender' },
       { field: 'policyInforcementDate', header: 'Policy Inforcement date' },
-      { field: 'policyAging', header: 'Policy aging (in month and days)' },
-      { field: 'priority', header: 'Priority' },
+      { field: 'policyAging', header: 'Policy aging (in month and days)' }
     ];
   }
 
