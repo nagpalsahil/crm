@@ -1,0 +1,23 @@
+export enum ApiConstant {
+    authorization = 'auth/login',
+    addMyEstimate = 'api/v1/estimates',
+    aideMaster = 'api/v1/aides',
+    ldapSearch = 'api/v1/ldap/user/wildcard/',
+    ldapMSID = 'api/v1/ldap/user/partial/',
+    estimates = 'api/v1/estimates',
+    inventory = 'api/v1/estimate/',
+    rateList = 'api/v1/rates/list',
+    rateCommon = 'api/v1/rates/',
+    rateCalculate = 'api/v1/cost/calculate',
+    estimateSearch = 'api/v1/estimates/search?search=',
+    estimateSearchExceptOwner = 'api/v1/estimates/searchExceptOwner?search=',
+    estimateSearchByOwner = 'api/v1/estimates/searchByOwner?search=',
+    audits = 'api/v1/audits/',
+    confirmationReq = 'api/v1/estimates/mine/exist',
+    estimatesMine = 'api/v1/estimates/mine',
+    activeYear='api/v1/activeyear',
+    rules= 'api/v1/rule',
+    validateRule= 'api/v1/rule/validate',
+    existRule='api/v1/rule/exist/',
+    financeApprovers= 'api/v1/finance/approvers'
+}
