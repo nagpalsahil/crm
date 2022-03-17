@@ -1,0 +1,98 @@
+@media (min-width: 992px) {
+    .layout-wrapper {
+        &.layout-overlay {
+            .layout-main-container {
+                margin-left: 0;
+                padding-left: 2rem;
+            }
+
+            .layout-sidebar {
+                transform: translateX(-100%);
+                left: 0;
+                top: 0;
+                height: 100vh;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            &.layout-overlay-sidebar-active {
+                .layout-sidebar {
+                    transform: translateX(0);
+                }
+            }
+        }
+
+        &.layout-static {
+            .layout-main-container {
+                margin-left: $sidebarWidth;
+            }
+
+            &.layout-static-sidebar-inactive {
+                .layout-sidebar {
+                    transition-delay: 5s ease-in-out;
+                    width: $sidebarCollapseWidth;
+                }
+
+                .layout-main-container {
+                    margin-left: $sidebarCollapseWidth;
+                    padding-left: 2rem;
+                }
+            }
+        }
+
+        .layout-mask {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .layout-wrapper {
+        .layout-main-container {
+            margin-left: 0;
+            padding-left: 2rem;
+        }
+
+        .layout-sidebar {
+            transform: translateX(-100%);
+            left: 0;
+            top: 0;
+            height: 100vh;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .layout-mask {
+            z-index: 998;
+            background-color: var(--mask-bg);
+
+            &.layout-mask-enter-from,
+            &.layout-mask-leave-to {
+                background-color: transparent;
+            }
+        }
+
+        &.layout-mobile-sidebar-active {
+            .layout-sidebar {
+                transform: translateX(0);
+            }
+
+            .layout-mask {
+                display: block;
+            }
+        }
+    }
+
+    .body-overflow-hidden {
+        overflow: hidden;
+    }
+}
+.pull-right{
+    float:right;
+}
+.mt-5{
+    margin-top:20px;
+}
+.ml-3{
+    margin-left: 15px;
+}
