@@ -1,0 +1,3 @@
+<input type="text" class="w-100" placeholder="Application ID/ Owner client ID" pInputText [(ngModel)]="searchValue">
+<small *ngIf="showError" id="searchValue-help"  class="p-error">Enter valid Application Number or Owner client Id.</small>
+<button pButton type="button" class="float-right mt-3" label="Search" (click)="searchData()"></button>

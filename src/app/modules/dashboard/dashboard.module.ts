@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { AppCommonModule } from 'src/app/app.common.module';
 import { DashboardRoutingModule } from './dashboard.routing';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    SearchBoxComponent
   ],
   imports: [
     CommonModule,

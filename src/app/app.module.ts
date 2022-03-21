@@ -22,6 +22,7 @@ import { HttpLoaderFactory } from './modules/login/login.module';
 import { LoaderService } from './service/loader.service';
 import { CustomerService } from './service/customerService';
 import { PolicyService } from './service/policyService';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
     imports: [
@@ -56,7 +57,8 @@ import { PolicyService } from './service/policyService';
         ConfirmationService,
         CookieService,
         CustomerService,
-        PolicyService
+        PolicyService,
+        DialogService
     ],
     bootstrap: [AppComponent]
 })

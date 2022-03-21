@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { Policy } from 'src/app/models/policy.model';
+import { Product } from 'src/app/models/product';
 import { PolicyService } from 'src/app/service/policyService';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,20 +12,14 @@ import { PolicyService } from 'src/app/service/policyService';
 })
 export class DashboardComponent implements OnInit {
 
-  policies: any[];
   filteredPolicies: Policy[];
-  loading:boolean = true;
+  ref: DynamicDialogRef;
   fieldsArr: any[];
-  hasData:boolean=false;
-  searchValue:string;
-  showError:boolean=false;
+  hasData=false;
 
-  constructor(private policyService: PolicyService) {}
+  constructor(public messageService: MessageService, public dialogService: DialogService) {}
 
   ngOnInit() {
-    this.policyService.getPolicies().then(policies => {
-        this.policies = policies;
-    });
 
     this.fieldsArr = [
       { field: 'ownerClientId', header: 'Owner client ID' },
@@ -41,30 +39,22 @@ export class DashboardComponent implements OnInit {
       { field: 'policyInforcementDate', header: 'Policy Inforcement date' },
       { field: 'policyAging', header: 'Policy aging (in month and days)' }
     ];
-  }
-
-  searchData(){
-    if(this.searchValue)
-    { 
-      const filtered: any[] = [];
-      for (let i = 0; i < this.policies.length; i++) {
-          const policy = this.policies[i];
-          if (policy.applicationName == this.searchValue || policy.ownerClientId == this.searchValue) {
-              filtered.push(this.calculateData(policy));
-          }
-      }
-      this.filteredPolicies = filtered;
-      this.hasData=this.filteredPolicies.length>0;
-      console.log(this.filteredPolicies);
-      this.showError=!this.hasData;
+    if(!this.filteredPolicies){
+      this.search();
     }
   }
-  calculateData(data): any{
-    let firstDate = new Date(data.policyInforcementDate);
-    let currentDate= new Date();
-    let diff=currentDate.getTime() - firstDate.getTime();
-    data.policyAging = diff;
-    data.priority= Math.floor(Math.random() * 3)+ 1;
-    return data;
+
+  search(){
+    this.ref = this.dialogService.open(SearchBoxComponent, {
+      header: 'Application ID/ Owner client ID',
+      width: '70%',
+      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      baseZIndex: 10000
+  });
+
+  this.ref.onClose.subscribe((policies:Policy[]) =>{
+      this.filteredPolicies=policies;
+      this.hasData=this.filteredPolicies.length>0;
+  });
   }
 }
