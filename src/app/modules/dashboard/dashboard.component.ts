@@ -13,31 +13,33 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 export class DashboardComponent implements OnInit {
 
   filteredPolicies: Policy[];
+  findLatestOwner: Policy;
   ref: DynamicDialogRef;
-  fieldsArr: any[];
+  productHeader: any[];
+  customerDtlsHeader:any[];
   hasData=false;
 
   constructor(public messageService: MessageService, public dialogService: DialogService) {}
 
   ngOnInit() {
-
-    this.fieldsArr = [
-      { field: 'ownerClientId', header: 'Owner client ID' },
-      { field: 'applicationName', header: 'Application Number' },
-      { field: 'channel', header: 'Channel' },
-      { field: 'customerSegment', header: 'Customer segment' },
-      { field: 'priority', header: 'Priority' },
-      { field: 'hni', header: 'HNI' },
-      { field: 'ownerExactOccupation', header: 'Owner exact occupation' },
-      { field: 'annualizedTargetPermium', header: 'Annualized Target Premium' },
-      { field: 'countOfPolicies', header: 'Count of policies' },
-      { field: 'policyStatusAsOnMonthend', header: 'Policy status as on Monthend' },
+    this.customerDtlsHeader=[
+      {field: 'ownerClientId', header: 'Owner client ID'},
+      {field: 'ownerName', header: 'Owner Name'},
+      {field: 'ownerGender', header: 'Owner Gender'},
+      {field: 'ownerExactOccupation', header: 'Owner exact occupation' },
+      {field: 'numberOfPolicies', header: 'Number of policies' },
+      {field: 'channel', header: 'Channel' },
+      {field: 'education', header: 'Education' }
+    ];
+    this.productHeader = [
+      { field: 'applicationNumber', header: 'Application Number' },
       { field: 'planName', header: 'Plan name' },
-      { field: 'education', header: 'Education' },
-      { field: 'ownerName', header: 'Owner Name' },
-      { field: 'ownerGender', header: 'Owner Gender' },
       { field: 'policyInforcementDate', header: 'Policy Inforcement date' },
-      { field: 'policyAging', header: 'Policy aging (in month and days)' }
+      { field: 'policyTerm', header: 'Policy term (PT)' },
+      { field: 'policyPayingTerm', header: 'Premium paying term (PPT)' },
+      { field: 'policyStatusAsOnMonthend', header: 'Policy status as on Monthend' },
+      { field: 'annualizedTargetPermium', header: 'Annualized Target Premium' },
+      {field: 'policyAging', header: 'Policy aging (in month and days)' },
     ];
     if(!this.filteredPolicies){
       this.search();
@@ -54,6 +56,12 @@ export class DashboardComponent implements OnInit {
 
   this.ref.onClose.subscribe((policies:Policy[]) =>{
       this.filteredPolicies=policies;
+      this.findLatestOwner= this.filteredPolicies[0];
+      for (let i = 1; i < this.filteredPolicies.length; i++) {
+        if(new Date(this.filteredPolicies[i].policyInforcementDate)>new Date(this.findLatestOwner.policyInforcementDate)){
+          this.findLatestOwner=this.filteredPolicies[i];
+        }
+      }
       this.hasData=this.filteredPolicies.length>0;
   });
   }

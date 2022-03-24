@@ -7,6 +7,9 @@ td > i{
 .mt-5{
     margin-top: 20px;
 }
+.mt-1{
+    margin-top: 5px;
+}
 .xxlarge{
     width: 10rem !important;
     height: 10rem !important;
@@ -43,15 +46,28 @@ td > i{
 .p-text-info{
     color:#3B82F6;
 }
-.p-text-color-1{
+.p-text-color-P1{
     color:#22C55E;
 }
-.p-text-color-2{
+.p-text-color-P2{
     color:#dbe913;
 }
-.p-text-color-3{
+.p-text-color-P3{
     color:#F59E0B;
 }
-.p-text-color-4{
+.p-text-color-P4{
     color:#EF4444;
+}
+
+.p-panel-info .p-panel-header{
+    background: #aec7e0 !important;
+    margin-top: 8px;
+}
+.p-panel-yellow .p-panel-header{
+    background: #edff86 !important;
+    margin-top: 8px;
+}
+.p-panel-orange .p-panel-header{
+    background: #fac25b !important;
+    margin-top: 8px;
 }

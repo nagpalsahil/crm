@@ -3,28 +3,65 @@
 		<button type="button" (click)="search()" class="float-right" pButton icon="pi pi-search" label="Application ID/ Owner client ID"></button>
 	</div>
 </div>
-<p-accordion class="mt-3">
-	<div *ngIf="filteredPolicies" >
-		<p-accordionTab header="Policy with Application Number: {{policy.applicationName}}" [selected]="hasData" *ngFor="let policy of filteredPolicies; let i = index">
-			<div class="grid">
-				<div class="col-4" *ngFor="let fieldData of fieldsArr">
-					<label class="text-bold">{{fieldData.header}}</label>
-					<h6 *ngIf="fieldData.field== 'customerSegment'" class="text-bold p-text-info">
-						{{policy[fieldData.field]}}
-					</h6>
-					<h6 *ngIf="fieldData.field== 'hni'" class="text-bold p-text-info">
-						{{policy[fieldData.field]}}
-					</h6>
-					<h6 *ngIf="fieldData.field== 'priority'">
-						<span class="p-text-color-{{policy[fieldData.field]}} text-bold">
-							P{{policy[fieldData.field]}}
-						</span>
-					</h6>
-					<div *ngIf="fieldData.field== 'policyAging'">
-						{{ ((policy[fieldData.field] | date:'YY') - 70 )}} Years, {{policy[fieldData.field] | date:'MM'}} Months, {{policy[fieldData.field] | date:'dd' }} Days</div> 
-					<div *ngIf="fieldData.field!= 'customerSegment' && fieldData.field!= 'hni' && fieldData.field!= 'policyAging' && fieldData.field!= 'priority'">{{policy[fieldData.field]}}</div>
-				</div>
+<div *ngIf="filteredPolicies">
+	<p-panel header="Overview" [toggleable]="true" class="p-panel-info">
+		<div class="grid">
+			<div class="col-4 grid">
+				<label class="text-bold">Customer segment</label>
+				<span class="text-bold p-text-info w-100">
+					{{findLatestOwner['customerSegment']}}
+				</span>
 			</div>
-		</p-accordionTab>
-	</div>
-</p-accordion>
+			<div class="col-4 grid">
+				<label class="text-bold">HNI</label>
+				<span class="text-bold p-text-info w-100">
+					{{findLatestOwner['hni']}}
+				</span>
+			</div>
+			<div class="col-4 grid">
+				<label class="text-bold">Priority</label>
+				<span class="text-bold p-text-info w-100">
+					<span class="p-text-color-{{findLatestOwner['priority']}} text-bold">
+						{{findLatestOwner['priority']}}
+					</span>
+				</span>
+			</div>
+		</div>
+	</p-panel>
+	<p-panel header="Customer Details" [toggleable]="true" class="mt-1 p-panel-yellow">
+		<div class="grid">
+			<div class="col-3 grid" *ngFor="let fieldData of customerDtlsHeader">
+				<label class="text-bold">{{fieldData.header}}</label>
+				<span class="w-100">
+					{{findLatestOwner[fieldData.field]}}
+				</span>
+			</div>
+		</div>	
+	</p-panel>
+	<p-panel header="Product Details" [toggleable]="true" class="mt-1 p-panel-orange">
+		<p-accordion class="mt-3">
+			<p-accordionTab header="Policy with Application Number: {{policy.applicationNumber}}" [selected]="i==0" *ngFor="let policy of filteredPolicies; let i = index">
+				<div class="grid">
+					<div class="col-4" *ngFor="let fieldData of productHeader">
+						<label class="text-bold">{{fieldData.header}}</label>
+						<h6 *ngIf="fieldData.field== 'customerSegment'" class="text-bold p-text-info">
+							{{policy[fieldData.field]}}
+						</h6>
+						<h6 *ngIf="fieldData.field== 'hni'" class="text-bold p-text-info">
+							{{policy[fieldData.field]}}
+						</h6>
+						<h6 *ngIf="fieldData.field== 'priority'">
+							<span class="p-text-color-{{policy[fieldData.field]}} text-bold">
+								{{policy[fieldData.field]}}
+							</span>
+						</h6>
+						<div *ngIf="fieldData.field== 'policyAging'">
+							{{ ((policy[fieldData.field] | date:'YY') - 70 )}} Years, {{policy[fieldData.field] | date:'MM'}} Months, {{policy[fieldData.field] | date:'dd' }} Days</div> 
+						<div *ngIf="fieldData.field!= 'customerSegment' && fieldData.field!= 'hni' && fieldData.field!= 'policyAging' && fieldData.field!= 'priority'">{{policy[fieldData.field]}}</div>
+					</div>
+				</div>
+			</p-accordionTab>
+	</p-accordion>
+	
+	</p-panel>
+</div>

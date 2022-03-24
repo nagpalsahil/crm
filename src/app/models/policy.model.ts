@@ -1,18 +1,22 @@
 export class Policy {
-    applicationName?: number;
-    ownerExactOccupation?: string;
-    annualizedTargetPermium?: number;
-    ownerClientId?: number;
-    countOfPolicies: number;
+    applicationNumber?: number;
+    planName?: string;
+    policyInforcementDate: string;
+    policyTerm?:number;
+    policyPayingTerm?:number;
     policyStatusAsOnMonthend: string;
-    channel: string;
-    planName: string;
-    education: string;
-    customerSegment: string;
-    hni: string;
+    annualizedTargetPermium?: number;
+
+    ownerClientId?: number;
     ownerName: string;
     ownerGender: string;
-    policyInforcementDate: string;
+    ownerExactOccupation?: string;
+    numberOfPolicies: number;
+    channel: string;
+    education: string;
     policyAging: string;
+    
+    customerSegment: string;
+    hni: string;
     priority: string;
 }

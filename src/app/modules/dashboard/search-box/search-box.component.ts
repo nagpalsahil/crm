@@ -25,26 +25,31 @@ export class SearchBoxComponent implements OnInit {
 
   searchData(){ 
     const filtered: any[] = [];
+    let policyDtls:any;
     for (let i = 0; i < this.policies.length; i++) {
-        const policy = this.policies[i];
-        if (policy.applicationName == this.searchValue || policy.ownerClientId == this.searchValue) {
-            filtered.push(this.calculateData(policy));
-        }
+      const policy = this.policies[i];
+      if (policy.applicationNumber == this.searchValue || policy.ownerClientId == this.searchValue) {
+        policyDtls=this.policies[i];
+        break;
+      }
     }
-    this.hasData=filtered.length>0;
-    if(this.hasData){
+    if(policyDtls){
+      for (let i = 0; i < this.policies.length; i++) {
+        if (this.policies[i].ownerClientId == policyDtls.ownerClientId) {
+            filtered.push(this.calculateData(this.policies[i]));
+        }
+      }
       this.ref.close(filtered);
     }
-    else
+    else{
       this.showError=true;
-
+    }    
   }
   calculateData(data): any{
     let firstDate = new Date(data.policyInforcementDate);
     let currentDate= new Date();
     let diff=currentDate.getTime() - firstDate.getTime();
     data.policyAging = diff;
-    data.priority= Math.floor(Math.random() * 3)+ 1;
     return data;
   }
 }
