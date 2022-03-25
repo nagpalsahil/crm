@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
   productHeader: any[];
   customerDtlsHeader:any[];
   hasData=false;
+  priorityDef: any[];
+  segmentDef: any[];
 
   constructor(public messageService: MessageService, public dialogService: DialogService) {}
 
@@ -41,6 +43,22 @@ export class DashboardComponent implements OnInit {
       { field: 'annualizedTargetPermium', header: 'Annualized Target Premium' },
       {field: 'policyAging', header: 'Policy aging (in month and days)' },
     ];
+    this.priorityDef=[
+      { value: 'P1', defination:'Highest priority basis persona and ticket size'},
+      { value: 'P2', defination:'Medium priority basis persona and ticket size'},
+      { value: 'P3', defination:'Low priority basis profile and small ticket size'},
+      { value: 'P4', defination:'Lowest priority basis profile and small ticket size'}
+    ];
+    this.segmentDef=[
+      { value: 'USP', defination:'This customer belongs to Urban Salaried Professional segment'},
+      { value: 'BO-HE',	defination:'This customer belongs to Business owner/ Self employed- Highly educated (Graduate and above) segment'},	
+      { value: 'BO-LE',	defination:'This customer belongs to Business owner/ Self employed- Less educated (Diploma and below) segment'},
+      { value: 'ENR', defination:'This customer belongs to Empty nesters (Housewives, students etc.) and Retirees segment'},
+      { value: 'UMC', defination:'This customer belongs to Urban Mass (Salaried and less educated) segment'},
+      { value: 'RRI', defination:'This customer belongs to Rural Individuals- Farmers/ Agriculture and Salaried segment'},	
+      { value: 'NRI', defination:'This customer is Non-Resident Indian'},
+      { value: 'HNI', defination:'This customer is HNI basis more than 2x ticket size of average within Channel and Customer segment'}	
+    ];
     if(!this.filteredPolicies){
       this.search();
     }
@@ -62,6 +80,8 @@ export class DashboardComponent implements OnInit {
           this.findLatestOwner=this.filteredPolicies[i];
         }
       }
+      this.findLatestOwner.priority += ' - ' + this.priorityDef.find(({ value }) => value === this.findLatestOwner.priority).defination;
+      this.findLatestOwner.customerSegment += ' - ' + this.segmentDef.find(({ value }) => value === this.findLatestOwner.customerSegment).defination;
       this.hasData=this.filteredPolicies.length>0;
   });
   }
